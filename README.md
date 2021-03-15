@@ -21,3 +21,46 @@
 3. 疫情趋势。根据确诊、疑似、治愈/死亡病例统计数据分析疫情实时趋势，辅助指挥决策。
 
 4. 扩展出其他更具亮点的功能。
+
+
+
+
+
+# 字段
+
+| 字段名                | 含义 |
+| --------------------- | ---- |
+| provinceName          |      |
+| currentConfirmedCount |      |
+| confirmedCount        |      |
+| suspectedCount        |      |
+| curedCount            |      |
+| deadCount             |      |
+| updateTime            |      |
+
+
+
+
+
+| 变量名                | 注释                                                         |
+| --------------------- | ------------------------------------------------------------ |
+| locationId            | 城市编号，中国大陆城市编号为邮编，中国大陆以外城市编号暂不知规则 |
+|                       |                                                              |
+|                       |                                                              |
+|                       |                                                              |
+| provinceShortName     | 省份、地区或直辖市简称                                       |
+| currentConfirmedCount | 现存确诊人数，值为confirmedCount - curedCount - deadCount    |
+| confirmedCount        | 累计确诊人数                                                 |
+| suspectedCount        | 疑似感染人数                                                 |
+| curedCount            | 治愈人数                                                     |
+| deadCount             | 死亡人数                                                     |
+|                       |                                                              |
+|                       |                                                              |
+| updateTime            | 数据更新时间                                                 |
+
+
+
+
+
+
+
