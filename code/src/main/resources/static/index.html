@@ -17,13 +17,26 @@
     <script src="js/vue.js"></script>
 </head>
 <body>
-<div id="main"></div>
+<div id="app">
+    allCurrentConfirmedCount:<span v-text="allCurrentConfirmedCount"></span><br>
+    allConfirmedCount:<span v-html="allConfirmedCount"></span><br>
+    allSuspectedCount:<span v-text="allSuspectedCount"></span><br>
+    allCuredCount:<span v-html="allCuredCount"></span><br>
+    allDeadCount:<span v-text="allDeadCount"></span><br>
+    <div id="main"></div>
+</div>
+
 </body>
 <script>
     var app = new Vue({
-        el:"#main",
+        el:"#app",
         data:{
-            resource:[]
+            resource:[],
+            allCurrentConfirmedCount:0,//现存确诊人数，值为confirmedCount - curedCount - deadCount
+            allConfirmedCount:0,//累计确诊人数
+            allSuspectedCount:0,//疑似感染人数
+            allCuredCount:0,//累计治愈人数
+            allDeadCount:0,//累计死亡人数
         },
 
         created(){
@@ -35,7 +48,16 @@
                     value: item.currentConfirmedCount
                 }
             });
-            console.log(app.resource);
+
+            console.log(res.data);
+
+            app.allCurrentConfirmedCount=res.data.allCurrentConfirmedCount;
+            app.allConfirmedCount       =res.data.allConfirmedCount       ;
+            app.allSuspectedCount       =res.data.allSuspectedCount       ;
+            app.allCuredCount           =res.data.allCuredCount           ;
+            app.allDeadCount            =res.data.allDeadCount            ;
+
+            console.log(app);
             let chart = echarts.init(document.getElementById('main'));
             let option = {
                 title: {

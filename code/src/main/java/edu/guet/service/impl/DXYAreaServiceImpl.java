@@ -25,6 +25,15 @@ public class DXYAreaServiceImpl implements DXYAreaService {
     public HomeVO queryCurrentCase() {
         HomeVO homeVO = new HomeVO();
         List<DXYArea> dxyAreas = dxyAreaMapper.queryCurrentCase();
+
+        //计算国内整体情况
+        homeVO.setAllCurrentConfirmedCount(dxyAreas.stream().mapToInt(DXYArea::getCurrentConfirmedCount).sum());
+        homeVO.setAllConfirmedCount(dxyAreas.stream().mapToInt(DXYArea::getConfirmedCount).sum());
+        homeVO.setAllSuspectedCount(dxyAreas.stream().mapToInt(DXYArea::getSuspectedCount).sum());
+        homeVO.setAllCuredCount(dxyAreas.stream().mapToInt(DXYArea::getCuredCount).sum());
+        homeVO.setAllDeadCount(dxyAreas.stream().mapToInt(DXYArea::getDeadCount).sum());
+
+        System.out.println(homeVO);
         homeVO.setDxyAreaList(dxyAreas);
         return homeVO;
     }

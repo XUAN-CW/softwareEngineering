@@ -14,10 +14,10 @@ import java.util.List;
  */
 @Data
 public class HomeVO {
-    int cumulativeCurrentConfirmedCount;//现存确诊人数，值为confirmedCount - curedCount - deadCount
-    int cumulativeConfirmedCount;//累计确诊人数
-    int cumulativeSuspectedCount;//疑似感染人数
-    int cumulativeCuredCount;//治愈人数
-    int cumulativeDeadCount;//死亡人数
+    int allCurrentConfirmedCount;//现存确诊人数，值为confirmedCount - curedCount - deadCount
+    int allConfirmedCount;//累计确诊人数
+    int allSuspectedCount;//疑似感染人数
+    int allCuredCount;//累计治愈人数
+    int allDeadCount;//累计死亡人数
     List<DXYArea> dxyAreaList;//各省情况
 }
