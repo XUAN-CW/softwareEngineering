@@ -1,6 +1,6 @@
 package edu.guet.vo;
 
-import edu.guet.domain.CaseInChinaMap;
+import edu.guet.domain.DXYArea;
 import lombok.Data;
 
 import java.util.List;
@@ -14,5 +14,10 @@ import java.util.List;
  */
 @Data
 public class HomeVO {
-    List<CaseInChinaMap> caseInChinaMapList;
+    int cumulativeCurrentConfirmedCount;//现存确诊人数，值为confirmedCount - curedCount - deadCount
+    int cumulativeConfirmedCount;//累计确诊人数
+    int cumulativeSuspectedCount;//疑似感染人数
+    int cumulativeCuredCount;//治愈人数
+    int cumulativeDeadCount;//死亡人数
+    List<DXYArea> dxyAreaList;//各省情况
 }
