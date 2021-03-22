@@ -19,6 +19,19 @@ public class DXYArea {
     int deadCount;//死亡人数
     Date updateTime;//数据更新时间
 
+    @Override
+    public String toString() {
+        return "DXYArea{" +
+                "locationId=" + locationId +
+                ", provinceShortName='" + provinceShortName + '\'' +
+                ", currentConfirmedCount=" + currentConfirmedCount +
+                ", confirmedCount=" + confirmedCount +
+                ", suspectedCount=" + suspectedCount +
+                ", curedCount=" + curedCount +
+                ", deadCount=" + deadCount +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 
     public int getLocationId() {
         return locationId;
