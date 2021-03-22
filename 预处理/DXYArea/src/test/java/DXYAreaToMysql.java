@@ -5,6 +5,7 @@
  * @purpose
  * @errors
  */
+import Utils.SaveAndRead;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -21,7 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyBatisTest {
+public class DXYAreaToMysql {
 
     @Test
     //处理的资料：https://github.com/BlankerL/DXY-COVID-19-Data/releases/download/2021.01.23/DXYArea.json
@@ -54,7 +55,7 @@ public class MyBatisTest {
         SqlSession sqlSession = sqlSessionFactory.openSession(true);//在此设置为 true ，后面就不用手动提交
 
 
-//        JSONArray objects = JSON.parseArray(SaveAndRead.read("DXYArea.json"));
+//        JSONArray objects = JSON.parseArray(Utils.SaveAndRead.read("DXYArea.json"));
         System.out.println(objects.size());
         for (int i = 0; i <objects.size() ; i++) {
             JSONObject key = (JSONObject)objects.get(i);
