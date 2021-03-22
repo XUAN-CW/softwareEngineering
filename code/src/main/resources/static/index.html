@@ -52,10 +52,10 @@
             console.log(res.data);
 
             app.allCurrentConfirmedCount=res.data.allCurrentConfirmedCount;
-            app.allConfirmedCount       =res.data.allConfirmedCount       ;
-            app.allSuspectedCount       =res.data.allSuspectedCount       ;
-            app.allCuredCount           =res.data.allCuredCount           ;
-            app.allDeadCount            =res.data.allDeadCount            ;
+            app.allConfirmedCount=res.data.allConfirmedCount;
+            app.allSuspectedCount=res.data.allSuspectedCount;
+            app.allCuredCount=res.data.allCuredCount;
+            app.allDeadCount=res.data.allDeadCount;
 
             console.log(app);
             let chart = echarts.init(document.getElementById('main'));
