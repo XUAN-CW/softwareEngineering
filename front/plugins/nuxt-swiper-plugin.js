@@ -3,6 +3,8 @@ import VueAwesomeSwiper from 'vue-awesome-swiper/dist/ssr'
 import VueQriously from 'vue-qriously'
 import ElementUI from 'element-ui' //element-ui的全部组件
 import 'element-ui/lib/theme-chalk/index.css'//element-ui的css
+import axios from 'axios'
+Vue.prototype.$axios = axios    //全局注册，使用方法为:this.$axios
 Vue.use(ElementUI) //使用elementUI
 Vue.use(VueQriously)
 

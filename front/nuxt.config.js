@@ -1,4 +1,7 @@
 module.exports = {
+  modules: [
+    '@nuxtjs/axios',
+  ],
   plugins: [
     { src: '~/plugins/nuxt-swiper-plugin.js', ssr: false },
     '~plugins/echarts'
