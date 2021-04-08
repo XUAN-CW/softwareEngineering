@@ -1,6 +1,7 @@
 module.exports = {
   plugins: [
-    { src: '~/plugins/nuxt-swiper-plugin.js', ssr: false }
+    { src: '~/plugins/nuxt-swiper-plugin.js', ssr: false },
+    '~plugins/echarts'
   ],
 
   css: [
