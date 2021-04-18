@@ -1,6 +1,6 @@
 <template>
   <div class="Echarts">
-    <div id="main" style="width: 600px; height: 400px"></div>
+    <div id="main" style="width: 900px; height: 600px"></div>
   </div>
 </template>
 
