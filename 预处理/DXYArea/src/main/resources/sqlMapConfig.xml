@@ -21,6 +21,7 @@
     <!--加载映射文件-->
     <mappers>
         <mapper resource="mapper/DXYAreaMapper.xml"></mapper>
+        <mapper resource="mapper/CityCaseMapper.xml"></mapper>
     </mappers>
 
 
