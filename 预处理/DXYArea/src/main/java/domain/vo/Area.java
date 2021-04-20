@@ -1,4 +1,4 @@
-package domain;
+package domain.vo;
 
 import lombok.Data;
 
@@ -6,17 +6,15 @@ import java.util.Date;
 
 /**
  * @author XUAN
- * @date 2021/4/20 - 12:09
+ * @date 2021/4/20 - 21:24
  * @references
  * @purpose
  * @errors
  */
 @Data
-public class CityCase {
-    String provinceShortName;//省份、地区或直辖市简称
-    String cityName;
+public class Area {
+    String areaName;//省份、地区或直辖市简称
     Date updateTime;//数据更新时间
-
 
     int currentConfirmedCount;//现存确诊人数，值为confirmedCount - curedCount - deadCount
     int confirmedCount;//累计确诊人数

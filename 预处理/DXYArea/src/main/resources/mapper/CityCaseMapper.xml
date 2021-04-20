@@ -7,6 +7,9 @@
         insert into citycase values(#{provinceShortName},#{cityName},#{currentConfirmedCount},#{confirmedCount},#{suspectedCount},#{curedCount},#{deadCount},#{updateTime})
     </insert>
 
-
+    <!--根据id进行查询-->
+    <select id="findByUpdateTime" resultType="user" parameterType="Date">
+        select * from user where id=#{id}
+    </select>
 
 </mapper>

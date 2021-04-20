@@ -1,5 +1,7 @@
 package domain;
 
+import lombok.Data;
+
 import java.util.Date;
 
 /**
@@ -9,6 +11,7 @@ import java.util.Date;
  * @purpose
  * @errors
  */
+@Data
 public class DXYArea {
     int locationId;//城市编号，中国大陆城市编号为邮编，中国大陆以外城市编号暂不知规则
     String provinceShortName;//省份、地区或直辖市简称
@@ -18,82 +21,4 @@ public class DXYArea {
     int curedCount;//治愈人数
     int deadCount;//死亡人数
     Date updateTime;//数据更新时间
-
-    @Override
-    public String toString() {
-        return "DXYArea{" +
-                "locationId=" + locationId +
-                ", provinceShortName='" + provinceShortName + '\'' +
-                ", currentConfirmedCount=" + currentConfirmedCount +
-                ", confirmedCount=" + confirmedCount +
-                ", suspectedCount=" + suspectedCount +
-                ", curedCount=" + curedCount +
-                ", deadCount=" + deadCount +
-                ", updateTime=" + updateTime +
-                '}';
-    }
-
-    public int getLocationId() {
-        return locationId;
-    }
-
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
-    }
-
-    public String getProvinceShortName() {
-        return provinceShortName;
-    }
-
-    public void setProvinceShortName(String provinceShortName) {
-        this.provinceShortName = provinceShortName;
-    }
-
-    public int getCurrentConfirmedCount() {
-        return currentConfirmedCount;
-    }
-
-    public void setCurrentConfirmedCount(int currentConfirmedCount) {
-        this.currentConfirmedCount = currentConfirmedCount;
-    }
-
-    public int getConfirmedCount() {
-        return confirmedCount;
-    }
-
-    public void setConfirmedCount(int confirmedCount) {
-        this.confirmedCount = confirmedCount;
-    }
-
-    public int getSuspectedCount() {
-        return suspectedCount;
-    }
-
-    public void setSuspectedCount(int suspectedCount) {
-        this.suspectedCount = suspectedCount;
-    }
-
-    public int getCuredCount() {
-        return curedCount;
-    }
-
-    public void setCuredCount(int curedCount) {
-        this.curedCount = curedCount;
-    }
-
-    public int getDeadCount() {
-        return deadCount;
-    }
-
-    public void setDeadCount(int deadCount) {
-        this.deadCount = deadCount;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }
