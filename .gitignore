@@ -3,6 +3,7 @@
 *.class
 target/
 *.iml
+前端/
 
 mayBeUseful/
 预处理/No_001_itheima_mybatis_quick/DXYArea.json

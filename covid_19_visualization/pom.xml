@@ -6,6 +6,7 @@
     <modules>
         <module>china_map</module>
         <module>common</module>
+        <module>hellper</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -21,9 +22,18 @@
     <description>project for COVID-19 visualization</description>
     <properties>
         <java.version>11</java.version>
+        <mybatis-plus.version>3.0.5</mybatis-plus.version>
     </properties>
 
     <dependencyManagement>
+        <dependencies>
+            <!--mybatis-plus-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
     <build>
