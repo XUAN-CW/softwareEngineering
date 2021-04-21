@@ -2,4 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.guet.mapper.CityCaseMapper">
 
+    <!--根据id进行查询-->
+    <select id="findByUpdateTime" resultType="edu.guet.entity.CityCase">
+        select * from (select * from city_case order by updateTime DESC) as tmp GROUP BY provinceShortName,cityName;
+    </select>
+
+
 </mapper>

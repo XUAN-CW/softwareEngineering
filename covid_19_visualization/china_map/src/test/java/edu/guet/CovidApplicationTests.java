@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Date;
+
 @SpringBootTest
 class CovidApplicationTests {
 
@@ -16,5 +18,9 @@ class CovidApplicationTests {
         System.out.println(cityCaseMapper.selectList(null));
     }
 
+    @Test
+    void findByUpdateTime(){
+        System.out.println(cityCaseMapper.findByUpdateTime());
+    }
 
 }

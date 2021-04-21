@@ -4,6 +4,9 @@ import edu.guet.entity.CityCase;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -14,5 +17,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CityCaseMapper extends BaseMapper<CityCase> {
-
+    List<CityCase> findByUpdateTime();
 }
