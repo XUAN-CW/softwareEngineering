@@ -3,8 +3,8 @@
 <mapper namespace="edu.guet.mapper.CityCaseMapper">
 
     <!--根据id进行查询-->
-    <select id="findByUpdateTime" resultType="edu.guet.entity.CityCase">
-        select * from (select * from city_case order by updateTime DESC) as tmp GROUP BY provinceShortName,cityName;
+    <select id="findByUpdateTime" resultType="edu.guet.entity.CityCase" parameterType="Date">
+        select * from (select * from city_case WHERE updateTime &lt; #{date} order by updateTime DESC) as tmp GROUP BY provinceShortName,cityName;
     </select>
 
 

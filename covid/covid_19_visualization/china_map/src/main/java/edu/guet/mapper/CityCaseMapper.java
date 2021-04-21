@@ -17,5 +17,5 @@ import java.util.List;
  */
 @Repository
 public interface CityCaseMapper extends BaseMapper<CityCase> {
-    List<CityCase> findByUpdateTime();
+    List<CityCase> findByUpdateTime(Date date);
 }
