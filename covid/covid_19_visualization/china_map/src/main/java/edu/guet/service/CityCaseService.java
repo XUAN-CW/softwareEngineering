@@ -2,6 +2,10 @@ package edu.guet.service;
 
 import edu.guet.entity.CityCase;
 import com.baomidou.mybatisplus.extension.service.IService;
+import edu.guet.entity.vo.ChinaVO;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CityCaseService extends IService<CityCase> {
 
+    ChinaVO queryOneDayCase(Date date);
 }

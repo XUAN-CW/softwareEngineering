@@ -1,6 +1,7 @@
 package edu.guet;
 
 import edu.guet.mapper.CityCaseMapper;
+import edu.guet.service.CityCaseService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +16,9 @@ class CovidApplicationTests {
     @Autowired
     CityCaseMapper cityCaseMapper;
 
+    @Autowired
+    CityCaseService cityCaseService;
+
     @Test
     void findAll() {
         System.out.println(cityCaseMapper.selectList(null));
@@ -28,4 +32,8 @@ class CovidApplicationTests {
         System.out.println(cityCaseMapper.findByUpdateTime(date));
     }
 
+    @Test
+    void queryOneDayCase(){
+        cityCaseService.queryOneDayCase(new Date());
+    }
 }

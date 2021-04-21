@@ -23,6 +23,7 @@
     <properties>
         <java.version>11</java.version>
         <mybatis-plus.version>3.0.5</mybatis-plus.version>
+        <fastjson.version>1.2.28</fastjson.version>
     </properties>
 
     <dependencyManagement>
@@ -32,6 +33,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
