@@ -6,6 +6,8 @@ import edu.guet.R;
 import edu.guet.entity.vo.ChinaVO;
 import edu.guet.service.CityCaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +26,7 @@ import java.util.List;
  * @since 2021-04-21
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/city-case")
 public class CityCaseController {
 
@@ -31,7 +34,7 @@ public class CityCaseController {
     CityCaseService cityCaseService;
 
     //http://localhost:8801/city-case/queryAWeek
-    @RequestMapping("queryAWeek")
+    @GetMapping("queryAWeek")
     R queryAWeek(){
         List<ChinaVO> chinaVOList = new ArrayList<>();
         Date now = new Date();
