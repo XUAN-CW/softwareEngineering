@@ -7,34 +7,38 @@
 <script>
 import axios from "axios";
 
-  // require('echarts/lib/chart/effectScatter')
-  // 地图
-  require('echarts/lib/chart/map')
-  // 图例
-  require('echarts/lib/component/legend')
-  // 提示框
-  require('echarts/lib/component/tooltip')
-  // 地图geo
-  require('echarts/lib/component/geo')
-  // 中国地图
-  require('echarts/map/js/china')
+// require('echarts/lib/chart/effectScatter')
+// 地图
+require("echarts/lib/chart/map");
+// 图例
+require("echarts/lib/component/legend");
+// 提示框
+require("echarts/lib/component/tooltip");
+// 地图geo
+require("echarts/lib/component/geo");
+// 中国地图
+require("echarts/map/js/china");
 export default {
   name: "Echarts",
+  props: {
+    mapData: [],
+  },
   data() {
     return {
       week: [],
-      resource: []
+      resource: [],
     };
   },
-  created() {
-    this.queryCurrentCase();
+  mounted() {
+    // this.queryCurrentCase();
+    this.myEcharts();
   },
 
   methods: {
     queryCurrentCase() {
       axios.get("http://localhost:8801/city-case/queryAWeek").then((res) => {
         console.log(res);
-        this.week=res.data.data.week;
+        this.week = res.data.data.week;
         this.resource = this.week[0].provinceVOList.map((item) => {
           return {
             name: item.provinceShortName,
@@ -102,21 +106,15 @@ export default {
             name: "实时疫情地图",
             coordinateSystem: "geo",
             geoIndex: 0,
-            data: this.resource,
+            data: this.mapData,
           },
         ],
       };
 
-    // console.log("aaaaaa"+this.resource);
+      // console.log("aaaaaa"+this.resource);
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(options);
     },
-  },
-  mounted() {
-    
-    // this.queryCurrentCase();
-    // console.log(this.resource);
-    // this.myEcharts();
   },
 };
 </script>
