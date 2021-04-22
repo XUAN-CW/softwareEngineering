@@ -7,6 +7,7 @@
         <module>china_map</module>
         <module>common</module>
         <module>hellper</module>
+        <module>msm</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -26,6 +27,8 @@
         <fastjson.version>1.2.28</fastjson.version>
         <jjwt.version>0.9.1</jjwt.version>
         <jaxb-api.version>2.3.0</jaxb-api.version>
+        <commons-codec.version>1.6</commons-codec.version>
+        <aliyun-java-sdk-core.version>4.3.3</aliyun-java-sdk-core.version>
     </properties>
 
     <dependencyManagement>
@@ -50,6 +53,17 @@
                 <groupId>javax.xml.bind</groupId>
                 <artifactId>jaxb-api</artifactId>
                 <version>${jaxb-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-core</artifactId>
+                <version>${aliyun-java-sdk-core.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
