@@ -23,20 +23,11 @@ export default {
   data() {
     return {
       week: [],
-      resource: [],
-      allCurrentConfirmedCount: 0, //现存确诊人数，值为confirmedCount - curedCount - deadCount
-      allConfirmedCount: 0, //累计确诊人数
-      allSuspectedCount: 0, //疑似感染人数
-      allCuredCount: 0, //累计治愈人数
-      allDeadCount: 0, //累计死亡人数
+      resource: []
     };
   },
   created() {
     this.queryCurrentCase();
-    console.log("created1");
-    console.log(this.resource);
-     console.log("created2");
-    // this.myEcharts();
   },
 
   methods: {
@@ -51,12 +42,6 @@ export default {
           };
         });
 
-        // var jsonStr = JSON.stringify(this.resource);
-        // console.log(jsonStr);
-        // this.resource = jsonStr;
-        console.log("queryCurrentCase1");
-        console.log(this.resource);
-        console.log("queryCurrentCase2");
         this.myEcharts();
       });
     },
