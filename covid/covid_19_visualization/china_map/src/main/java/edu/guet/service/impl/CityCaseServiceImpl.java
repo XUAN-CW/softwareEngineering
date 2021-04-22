@@ -72,7 +72,7 @@ public class CityCaseServiceImpl extends ServiceImpl<CityCaseMapper, CityCase> i
             chinaVO.setDeadCount(chinaVO.getDeadCount()+provinceObject.getDeadCount());
             chinaVO.setSuspectedCount(chinaVO.getSuspectedCount()+provinceObject.getSuspectedCount());
         });
-        System.out.println(JSONArray.toJSON(chinaVO));
+//        System.out.println(JSONArray.toJSON(chinaVO));
 
 
 
@@ -81,6 +81,6 @@ public class CityCaseServiceImpl extends ServiceImpl<CityCaseMapper, CityCase> i
 
 
 
-        return null;
+        return chinaVO;
     }
 }
