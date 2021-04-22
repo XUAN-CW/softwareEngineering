@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Overview></Overview>
     <ChinaMap
       :mapData="showChinaMap.mapData"
       v-if="showChinaMap.updateMap"
@@ -10,9 +11,11 @@
 <script>
 import axios from "axios";
 import ChinaMap from "@/components/ChinaMap";
+import Overview from '@/components/Overview'
 export default {
   components: {
     ChinaMap,
+    Overview
   },
   data() {
     return {
