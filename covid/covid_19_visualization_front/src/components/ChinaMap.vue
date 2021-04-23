@@ -20,7 +20,7 @@ require("echarts/map/js/china");
 export default {
   name: "Echarts",
   props: {
-    mapData: [],
+    mapData: {},
   },
   data() {
     return {
