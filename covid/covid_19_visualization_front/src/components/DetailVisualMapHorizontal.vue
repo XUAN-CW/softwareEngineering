@@ -57,7 +57,7 @@ export default {
           {
             type: "bar",
             encode: {
-              // Map the "amount" column to X axis.
+              // Map the "value" column to X axis.
               x: "value",
               // Map the "name" column to Y axis
               y: "name",
