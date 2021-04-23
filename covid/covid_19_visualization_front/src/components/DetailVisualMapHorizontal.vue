@@ -25,21 +25,20 @@ export default {
     myEcharts() {
       // 基于准备好的dom，初始化echarts实例
       var myChart = this.$echarts.init(document.getElementById("detail_visualMap_horizontal"));
+              let data = []
+        data.push('value','name')
+        for(let i=0;i<this.mapData.length;i++){
+            let temp = []
+            temp.push(this.mapData[i].value)
+            temp.push(this.mapData[i].name)
+            data.push(temp)
+        }
+        console.log(data)
+
 
               let options = {
                 dataset: {
-                    source: [
-                        ['value' , 'name'],
-                        [89.3, 'Matcha Latte'],
-                        [57.1, 'Milk Tea'],
-                        [74.4, 'Cheese Cocoa'],
-                        [50.1, 'Cheese Brownie'],
-                        [89.7, 'Matcha Cocoa'],
-                        [68.1, 'Tea'],
-                        [19.6, 'Orange Juice'],
-                        [10.6, 'Lemon Juice'],
-                        [32.7, 'Walnut Brownie']
-                    ]
+                    source: data
                 },
                 grid: {containLabel: true},
                 xAxis: {name: 'value'},
