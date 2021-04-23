@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import axios from "axios";
 
 // require('echarts/lib/chart/effectScatter')
 // 地图
@@ -25,30 +24,13 @@ export default {
   },
   data() {
     return {
-      week: [],
-      resource: [],
     };
   },
   mounted() {
-    // this.queryCurrentCase();
     this.myEcharts();
   },
 
   methods: {
-    queryCurrentCase() {
-      axios.get("http://localhost:8801/city-case/queryAWeek").then((res) => {
-        console.log(res);
-        this.week = res.data.data.week;
-        this.resource = this.week[0].provinceVOList.map((item) => {
-          return {
-            name: item.provinceShortName,
-            value: item.currentConfirmedCount,
-          };
-        });
-
-        this.myEcharts();
-      });
-    },
 
     myEcharts() {
       // 基于准备好的dom，初始化echarts实例
