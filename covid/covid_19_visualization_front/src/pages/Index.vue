@@ -2,6 +2,7 @@
   <div>
     <Overview></Overview>
     <ChinaMap :mapData="mapData" :key="mapData"></ChinaMap>
+    <DetailVisualMapHorizontal></DetailVisualMapHorizontal>
   </div>
 </template>
 
@@ -9,10 +10,12 @@
 import axios from "axios";
 import ChinaMap from "@/components/ChinaMap";
 import Overview from "@/components/Overview";
+import DetailVisualMapHorizontal from '@/components/DetailVisualMapHorizontal'
 export default {
   components: {
     ChinaMap,
     Overview,
+    DetailVisualMapHorizontal
   },
   data() {
     return {

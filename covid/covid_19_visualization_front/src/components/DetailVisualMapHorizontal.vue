@@ -1,19 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>ECharts 实例</title>
-    <!-- 引入 echarts.js -->
-    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
-</head>
-<body>
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="detail_visualMap_horizontal" style="width: 600px;height:400px;"></div>
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('detail_visualMap_horizontal'));
- 
-        var option = {
+<template>
+  <div class="Echarts">
+    <div id="detail_visualMap_horizontal"></div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    mapData: [],
+  },
+  data() {
+    return {
+    };
+  },
+  mounted() {
+    this.myEcharts();
+  },
+
+  methods: {
+
+    myEcharts() {
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = this.$echarts.init(document.getElementById("detail_visualMap_horizontal"));
+
+              let options = {
                 dataset: {
                     source: [
                         ['value' , 'name'],
@@ -55,7 +65,17 @@
                     }
                 ]
             };
-	    myChart.setOption(option);
-    </script>
-</body>
-</html>
+
+      myChart.setOption(options);
+    },
+  },
+};
+</script>
+<style>
+#detail_visualMap_horizontal {
+  margin: 20px auto; /* 外边距 */
+  width: 1000px;
+  height: 720px;
+}
+</style>
+
