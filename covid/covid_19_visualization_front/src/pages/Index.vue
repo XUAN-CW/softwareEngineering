@@ -2,7 +2,7 @@
   <div>
     <Overview></Overview>
     <ChinaMap :mapData="mapData" :key="JSON.stringify(mapData)"></ChinaMap>
-    <DetailVisualMapHorizontal></DetailVisualMapHorizontal>
+    <DetailVisualMapHorizontal :mapData="mapData" :key="JSON.stringify(mapData)+1"></DetailVisualMapHorizontal>
   </div>
 </template>
 

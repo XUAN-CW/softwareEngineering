@@ -7,7 +7,7 @@
 <script>
 export default {
   props: {
-    mapData: [],
+    mapData: {},
   },
   data() {
     return {
