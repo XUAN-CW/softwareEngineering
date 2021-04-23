@@ -36,7 +36,6 @@ export default {
             value: item.currentConfirmedCount,
           };
         });
-        this.updateMap = true;
       });
     },
   },
