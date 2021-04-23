@@ -3,6 +3,7 @@
     <Overview></Overview>
     <ChinaMap :mapData="mapData" :key="JSON.stringify(mapData)"></ChinaMap>
     <DetailVisualMapHorizontal :mapData="mapData" :key="JSON.stringify(mapData)+1"></DetailVisualMapHorizontal>
+    <Pie4 :mapData="mapData" :key="JSON.stringify(mapData)+2"></Pie4>
   </div>
 </template>
 
@@ -11,16 +12,19 @@ import axios from "axios";
 import ChinaMap from "@/components/ChinaMap";
 import Overview from "@/components/Overview";
 import DetailVisualMapHorizontal from '@/components/DetailVisualMapHorizontal'
+import Pie4 from '@/components/Pie4'
 export default {
   components: {
     ChinaMap,
     Overview,
-    DetailVisualMapHorizontal
+    DetailVisualMapHorizontal,
+    Pie4,
   },
   data() {
     return {
       week: [],
       mapData: [],
+      Pie4,
     };
   },
   created() {
