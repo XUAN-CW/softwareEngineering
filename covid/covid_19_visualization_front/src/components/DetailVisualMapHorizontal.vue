@@ -14,7 +14,10 @@ export default {
     };
   },
   mounted() {
-    this.myEcharts();
+    
+    if (this.mapData.length > 0) {
+        this.myEcharts();
+    }
   },
 
   methods: {
