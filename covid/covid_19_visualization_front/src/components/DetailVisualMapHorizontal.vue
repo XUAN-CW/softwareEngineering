@@ -44,8 +44,6 @@ export default {
         visualMap: {
           orient: "horizontal",
           left: "center",
-          min: 0,
-          max: 100,
           text: ["High value", "Low value"],
           // Map the value column to color
           dimension: 0,
