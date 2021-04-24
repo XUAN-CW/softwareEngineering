@@ -1,19 +1,12 @@
 <template>
-  <div>
-    <div id="overview">
-      <ul>
-        <li><OverviewBox></OverviewBox></li>
-        <li><OverviewBox></OverviewBox></li>
-        <li><OverviewBox></OverviewBox></li>
-        <li><OverviewBox></OverviewBox></li>
-        <li><OverviewBox></OverviewBox></li>
-      </ul>
-    </div>
-    <div id="overview2">
-      <ul>
-        <li><OverviewBox></OverviewBox></li>
-      </ul>
-    </div>
+  <div id="overview" class="box_fixed" :class="{ is_fixed: isFixed }">
+    <ul>
+      <li><OverviewBox></OverviewBox></li>
+      <li><OverviewBox></OverviewBox></li>
+      <li><OverviewBox></OverviewBox></li>
+      <li><OverviewBox></OverviewBox></li>
+      <li><OverviewBox></OverviewBox></li>
+    </ul>
   </div>
 </template>
 
@@ -36,6 +29,12 @@ export default {
       ],
     };
   },
+  mounted() {
+    window.addEventListener("scroll", this.initHeight);
+    this.$nextTick(() => {
+      this.offsetTop = document.querySelector("#boxFixed").offsetTop;
+    });
+  },
   methods: {
     handleEdit(index, row) {
       console.log(index, row);
@@ -43,21 +42,22 @@ export default {
     handleDelete(index, row) {
       console.log(index, row);
     },
+    initHeight() {
+      var scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      this.isFixed = scrollTop > this.offsetTop ? true : false;
+    },
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
 };
 </script>
 
 <style>
 #overview {
-  margin: 0 auto; /* 外边距 */
-  width: 100%;
-  overflow: hidden;
-  background: white;
-  position: fixed;
-  top: 0;
-  z-index: 999;
-}
-#overview2 {
   margin: 0 auto; /* 外边距 */
   width: 100%;
   overflow: hidden;
@@ -78,5 +78,16 @@ ul li {
   list-style: none; /*隐藏序号*/
   text-align: center; /*让li在ul中水平居中*/
   width: 150px; /*任意设置li的宽度，不设置宽度的话也可以设置padding*/
+}
+
+.box_fixed {
+  margin: 0 auto;
+  width: 100%;
+  background: white;
+}
+.is_fixed {
+  position: fixed;
+  top: 0;
+  z-index: 999;
 }
 </style>
