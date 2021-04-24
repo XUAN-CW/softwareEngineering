@@ -75,6 +75,9 @@ export default {
         },
         legend: {
           data: legendData,
+          selected: {
+            "现有确诊": false,
+          },
         },
         toolbox: {
           show: true,
