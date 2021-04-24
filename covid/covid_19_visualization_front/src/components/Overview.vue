@@ -7,6 +7,10 @@
       <li><OverviewBox></OverviewBox></li>
       <li><OverviewBox></OverviewBox></li>
     </ul>
+    <div id="loginAndSignIn">
+      <a href=""> 登录 </a>
+      <a href=""> 注册 </a>
+    </div>
   </div>
 </template>
 
@@ -60,5 +64,15 @@ ul li {
   list-style: none; /*隐藏序号*/
   text-align: center; /*让li在ul中水平居中*/
   width: 150px; /*任意设置li的宽度，不设置宽度的话也可以设置padding*/
+}
+
+#loginAndSignIn {
+  top: 10px;
+  right: 10px;
+  position: fixed;
+}
+a {
+  text-decoration: none;
+  color:gray;
 }
 </style>
