@@ -2,7 +2,10 @@
   <div>
     <Overview></Overview>
     <ChinaMap :mapData="mapData" :key="JSON.stringify(mapData)"></ChinaMap>
-    <roma :mapData="mapData" :key="JSON.stringify(mapData) + 3"></roma>
+    <roma
+      :generalSituation="generalSituationOfAWeek"
+      :key="JSON.stringify(generalSituationOfAWeek) + 3"
+    ></roma>
     <DetailVisualMapHorizontal
       :mapData="mapData"
       :key="JSON.stringify(mapData) + 1"
@@ -31,6 +34,7 @@ export default {
     return {
       week: [],
       mapData: [],
+      generalSituationOfAWeek: [],
     };
   },
   created() {
@@ -45,6 +49,18 @@ export default {
           value: item.currentConfirmedCount,
         };
       });
+      // console.log(this.week)
+      this.generalSituationOfAWeek = this.week.map((item) => {
+        return {
+          currentConfirmedCount: item.currentConfirmedCount,
+          confirmedCount: item.confirmedCount,
+          suspectedCount: item.suspectedCount,
+          curedCount: item.curedCount,
+          deadCount: item.deadCount,
+          updateTime: item.updateTime,
+        };
+      });
+      // console.log(this.generalSituationOfAWeek);
     },
   },
 
