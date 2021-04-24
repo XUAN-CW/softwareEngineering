@@ -1,40 +1,21 @@
 <template>
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column label="现有确诊" width="180">
-      <template>
-        <h2>55</h2>
-        <span>昨日</span><span>+11</span>
-      </template>
-    </el-table-column>
-    <el-table-column label="疑似" width="180">
-      <template>
-        <h2>55</h2>
-        <span>昨日</span><span>+11</span>
-      </template>
-    </el-table-column>
-    <el-table-column label="累计确诊">
-      <template>
-        <h2>55</h2>
-        <span>昨日</span><span>+11</span>
-      </template>
-    </el-table-column>
-    <el-table-column label="累计治愈">
-      <template>
-        <h2>55</h2>
-        <span>昨日</span><span>+11</span>
-      </template>
-    </el-table-column>
-    <el-table-column label="累计死亡">
-      <template>
-        <h2>55</h2>
-        <span>昨日</span><span>+11</span>
-      </template>
-    </el-table-column>
-  </el-table>
+  <div id="overview">
+    <ul>
+      <li><OverviewBox></OverviewBox></li>
+      <li><OverviewBox></OverviewBox></li>
+      <li><OverviewBox></OverviewBox></li>
+      <li><OverviewBox></OverviewBox></li>
+      <li><OverviewBox></OverviewBox></li>
+    </ul>
+  </div>
 </template>
 
 <script>
+import OverviewBox from "@/components/OverviewBox";
 export default {
+  components: {
+    OverviewBox,
+  },
   data() {
     return {
       tableData: [
@@ -56,3 +37,28 @@ export default {
   },
 };
 </script>
+
+<style>
+#overview {
+  margin: 20px auto; /* 外边距 */
+  width: 1000px;
+  overflow: hidden;
+}
+
+ul {
+  display: table; /*这里是关键步骤：*/
+  margin: 0 auto; /*让ul在div中水平居中 */
+}
+ul::after {
+  /*清除浮动 */
+  content: "";
+  display: inline-block;
+  clear: both;
+}
+ul li {
+  float: left; /*让li浮动起来 横向排列*/
+  list-style: none; /*隐藏序号*/
+  text-align: center; /*让li在ul中水平居中*/
+  width: 150px; /*任意设置li的宽度，不设置宽度的话也可以设置padding*/
+}
+</style>
