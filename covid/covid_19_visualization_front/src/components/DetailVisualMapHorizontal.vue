@@ -32,7 +32,7 @@ export default {
         temp.push(this.mapData[i].name);
         data.push(temp);
       }
-      console.log(data);
+      // console.log(data);
 
       let options = {
         dataset: {
