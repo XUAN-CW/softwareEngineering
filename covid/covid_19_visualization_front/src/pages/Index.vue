@@ -2,6 +2,7 @@
   <div>
     <Overview></Overview>
     <ChinaMap :mapData="mapData" :key="JSON.stringify(mapData)"></ChinaMap>
+    <roma  :mapData="mapData" :key="JSON.stringify(mapData)+3"></roma>
     <DetailVisualMapHorizontal :mapData="mapData" :key="JSON.stringify(mapData)+1"></DetailVisualMapHorizontal>
     <Pie4 :mapData="mapData" :key="JSON.stringify(mapData)+2"></Pie4>
   </div>
@@ -13,10 +14,13 @@ import ChinaMap from "@/components/ChinaMap";
 import Overview from "@/components/Overview";
 import DetailVisualMapHorizontal from '@/components/DetailVisualMapHorizontal'
 import Pie4 from '@/components/Pie4'
+import Roma from '@/components/Roma'
+
 export default {
   components: {
     ChinaMap,
     Overview,
+    Roma,
     DetailVisualMapHorizontal,
     Pie4,
   },
