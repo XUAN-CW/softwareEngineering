@@ -66,7 +66,7 @@ export default {
       }
       xAxisData.push("今天");
 
-      console.log(seriesItems);
+      // console.log(seriesItems);
       var myChart = this.$echarts.init(document.getElementById("roma"));
 
       let options = {
