@@ -2,9 +2,9 @@
   <div>
     <Overview></Overview>
     <ChinaMap :mapData="mapData" :key="JSON.stringify(mapData)"></ChinaMap>
-    <roma :generalSituation="show.areaCaseOnAWeek" :key="JSON.stringify(show.areaCaseOnAWeek) + 3"></roma>
-    <DetailVisualMapHorizontal :mapData="mapData" :key="JSON.stringify(mapData) + 1"></DetailVisualMapHorizontal>
-    <Pie4 :mapData="mapData" :key="JSON.stringify(mapData) + 2"></Pie4>
+    <roma :generalSituation="show.areaCaseOnAWeek" :checked="show.covidType" :key="JSON.stringify(show.areaCaseOnAWeek) + 3"></roma>
+    <DetailVisualMapHorizontal :mapData="show.children_name_value" :key="JSON.stringify(show.children_name_value) + 1"></DetailVisualMapHorizontal>
+    <Pie4 :mapData="show.children_name_value" :key="JSON.stringify(show.children_name_value) + 2"></Pie4>
   </div>
 </template>
 
@@ -37,6 +37,10 @@ export default {
     };
   },
   created() {
+      let keyValue = {};
+  keyValue["aaaa"] = false;
+  console.log(keyValue)
+
     this.queryCurrentCase();
   },
 
@@ -48,8 +52,8 @@ export default {
           value: item.currentConfirmedCount,
         };
       });
-      this.show.area = "陕西";
-      this.show.covidType = "confirmedCount";
+      this.show.area = "湖南";
+      this.show.covidType = "curedCount";
       // console.log(this.week)
       // this.show.areaCaseOnAWeek = this.week.map((item) => {
       //   return {

@@ -20,6 +20,7 @@ export default {
   name: "Echarts",
   props: {
     generalSituation: {},
+    checked: {},
   },
   data() {
     return {};
@@ -32,13 +33,11 @@ export default {
 
   methods: {
     myEcharts() {
-      let legendData = [
-        "现有确诊",
-        "累计确诊",
-        "累计治愈",
-        "累计死亡",
-        "现有疑似",
-      ];
+
+      let legendData = Object.keys(this.generalSituation[0])
+      legendData.splice(legendData.findIndex(item => item === "updateTime"), 1)
+
+      // console.log(legendData)
 
       let seriesItems = [];
       for (let i = 0; i < legendData.length; i++) {
@@ -50,6 +49,7 @@ export default {
         };
         seriesItems.push(seriesItem);
       }
+
       for (let i = this.generalSituation.length - 1; i >= 0; i--) {
         seriesItems[0].data.push(
           this.generalSituation[i].currentConfirmedCount
@@ -65,8 +65,18 @@ export default {
         xAxisData.push(i + "天前");
       }
       xAxisData.push("今天");
+      let unSelectedData = {};
+      console.log(this.checked)
+      for (let index = 0; index < legendData.length; index++) {
+        if (legendData[index] == this.checked) {
+          continue
+        }
+        let keyValue = {};
+        keyValue[legendData[index]] = false;
+        Object.assign(unSelectedData, keyValue)
+      }
 
-      // console.log(seriesItems);
+
       var myChart = this.$echarts.init(document.getElementById("roma"));
 
       let options = {
@@ -75,9 +85,7 @@ export default {
         },
         legend: {
           data: legendData,
-          selected: {
-            "现有确诊": false,
-          },
+          selected: unSelectedData,
         },
         toolbox: {
           show: true,
