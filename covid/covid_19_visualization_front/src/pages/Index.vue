@@ -37,10 +37,6 @@ export default {
     };
   },
   created() {
-      let keyValue = {};
-  keyValue["aaaa"] = false;
-  console.log(keyValue)
-
     this.queryCurrentCase();
   },
 
