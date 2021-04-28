@@ -2,14 +2,8 @@
   <div>
     <Overview></Overview>
     <ChinaMap :mapData="mapData" :key="JSON.stringify(mapData)"></ChinaMap>
-    <roma
-      :generalSituation="show.generalSituationOfAWeek"
-      :key="JSON.stringify(show.generalSituationOfAWeek) + 3"
-    ></roma>
-    <DetailVisualMapHorizontal
-      :mapData="mapData"
-      :key="JSON.stringify(mapData) + 1"
-    ></DetailVisualMapHorizontal>
+    <roma :generalSituation="show.generalSituationOfAWeek" :key="JSON.stringify(show.generalSituationOfAWeek) + 3"></roma>
+    <DetailVisualMapHorizontal :mapData="mapData" :key="JSON.stringify(mapData) + 1"></DetailVisualMapHorizontal>
     <Pie4 :mapData="mapData" :key="JSON.stringify(mapData) + 2"></Pie4>
   </div>
 </template>
@@ -83,26 +77,16 @@ export default {
       } else {
         let today = this.week[0];
         let SelectedProvince = 0;
-        for (
-          ;
-          SelectedProvince < today.provinceVOList.length;
-          SelectedProvince++
-        ) {
-          if (
-            today.provinceVOList[SelectedProvince].provinceShortName ==
-            this.show.area
-          ) {
+        for (; SelectedProvince < today.provinceVOList.length; SelectedProvince++) {
+          if (today.provinceVOList[SelectedProvince].provinceShortName == this.show.area) {
             break;
           }
         }
         this.show.generalSituationOfAWeek = this.week.map((item) => {
           return {
-            currentConfirmedCount:
-              item.provinceVOList[SelectedProvince].currentConfirmedCount,
-            confirmedCount:
-              item.provinceVOList[SelectedProvince].confirmedCount,
-            suspectedCount:
-              item.provinceVOList[SelectedProvince].suspectedCount,
+            currentConfirmedCount: item.provinceVOList[SelectedProvince].currentConfirmedCount,
+            confirmedCount: item.provinceVOList[SelectedProvince].confirmedCount,
+            suspectedCount: item.provinceVOList[SelectedProvince].suspectedCount,
             curedCount: item.provinceVOList[SelectedProvince].curedCount,
             deadCount: item.provinceVOList[SelectedProvince].deadCount,
             updateTime: item.provinceVOList[SelectedProvince].updateTime,
