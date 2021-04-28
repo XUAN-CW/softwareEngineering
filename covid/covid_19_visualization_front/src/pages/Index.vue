@@ -3,8 +3,8 @@
     <Overview></Overview>
     <ChinaMap :mapData="mapData" :key="JSON.stringify(mapData)"></ChinaMap>
     <roma
-      :generalSituation="generalSituationOfAWeek"
-      :key="JSON.stringify(generalSituationOfAWeek) + 3"
+      :generalSituation="show.generalSituationOfAWeek"
+      :key="JSON.stringify(show.generalSituationOfAWeek) + 3"
     ></roma>
     <DetailVisualMapHorizontal
       :mapData="mapData"
@@ -34,7 +34,11 @@ export default {
     return {
       week: [],
       mapData: [],
-      generalSituationOfAWeek: [],
+      show: {
+        area: "china-test",
+        generalSituationOfAWeek: [],
+        covidType: "currentConfirmedCount",
+      },
     };
   },
   created() {
@@ -49,18 +53,63 @@ export default {
           value: item.currentConfirmedCount,
         };
       });
+      this.show.area = "湖南";
       // console.log(this.week)
-      this.generalSituationOfAWeek = this.week.map((item) => {
-        return {
-          currentConfirmedCount: item.currentConfirmedCount,
-          confirmedCount: item.confirmedCount,
-          suspectedCount: item.suspectedCount,
-          curedCount: item.curedCount,
-          deadCount: item.deadCount,
-          updateTime: item.updateTime,
-        };
-      });
-      // console.log(this.generalSituationOfAWeek);
+      // this.show.generalSituationOfAWeek = this.week.map((item) => {
+      //   return {
+      //     currentConfirmedCount: item.currentConfirmedCount,
+      //     confirmedCount: item.confirmedCount,
+      //     suspectedCount: item.suspectedCount,
+      //     curedCount: item.curedCount,
+      //     deadCount: item.deadCount,
+      //     updateTime: item.updateTime,
+      //   };
+      // });
+      // console.log(this.show.generalSituationOfAWeek);
+    },
+    "show.area"() {
+      if (this.show.area == "china") {
+        console.log(this.show.area);
+        this.show.generalSituationOfAWeek = this.week.map((item) => {
+          return {
+            currentConfirmedCount: item.currentConfirmedCount,
+            confirmedCount: item.confirmedCount,
+            suspectedCount: item.suspectedCount,
+            curedCount: item.curedCount,
+            deadCount: item.deadCount,
+            updateTime: item.updateTime,
+          };
+        });
+      } else {
+        let today = this.week[0];
+        let SelectedProvince = 0;
+        for (
+          ;
+          SelectedProvince < today.provinceVOList.length;
+          SelectedProvince++
+        ) {
+          if (
+            today.provinceVOList[SelectedProvince].provinceShortName ==
+            this.show.area
+          ) {
+            break;
+          }
+        }
+        this.show.generalSituationOfAWeek = this.week.map((item) => {
+          return {
+            currentConfirmedCount:
+              item.provinceVOList[SelectedProvince].currentConfirmedCount,
+            confirmedCount:
+              item.provinceVOList[SelectedProvince].confirmedCount,
+            suspectedCount:
+              item.provinceVOList[SelectedProvince].suspectedCount,
+            curedCount: item.provinceVOList[SelectedProvince].curedCount,
+            deadCount: item.provinceVOList[SelectedProvince].deadCount,
+            updateTime: item.provinceVOList[SelectedProvince].updateTime,
+          };
+        });
+        console.log(this.show.generalSituationOfAWeek);
+      }
     },
   },
 
