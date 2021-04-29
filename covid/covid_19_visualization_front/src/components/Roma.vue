@@ -66,7 +66,7 @@ export default {
       }
       xAxisData.push("今天");
       let unSelectedData = {};
-      console.log(this.checked)
+      // console.log(this.checked)
       for (let index = 0; index < legendData.length; index++) {
         if (legendData[index] == this.checked) {
           continue
