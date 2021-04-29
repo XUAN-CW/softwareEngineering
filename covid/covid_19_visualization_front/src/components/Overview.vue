@@ -1,5 +1,5 @@
 <template>
-  <div id="overview">
+  <div id="overview" v-if="today">
     <ul>
       <li>
         <div class="overviewBox">
