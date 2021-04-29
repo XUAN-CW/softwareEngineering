@@ -44,22 +44,7 @@
 export default {
   data() {
     return {
-      tableData: [
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-      ],
     };
-  },
-  methods: {
-    handleEdit(index, row) {
-      console.log(index, row);
-    },
-    handleDelete(index, row) {
-      console.log(index, row);
-    },
   },
 };
 </script>
@@ -102,5 +87,4 @@ ul li {
   text-align: center; /*让li在ul中水平居中*/
   width: 150px; /*任意设置li的宽度，不设置宽度的话也可以设置padding*/
 }
-
 </style>
