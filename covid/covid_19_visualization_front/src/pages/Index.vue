@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Overview></Overview>
+    <Overview :today="show.areaCaseOnAWeek[0]" :yesterday="show.areaCaseOnAWeek[1]"></Overview>
     <ChinaMap :mapData="mapData" :key="JSON.stringify(mapData)"></ChinaMap>
     <roma :generalSituation="show.areaCaseOnAWeek" :checked="show.covidType" :key="JSON.stringify(show.areaCaseOnAWeek) + 3"></roma>
     <DetailVisualMapHorizontal :mapData="show.children_name_value" :key="JSON.stringify(show.children_name_value) + 1"></DetailVisualMapHorizontal>

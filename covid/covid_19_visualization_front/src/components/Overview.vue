@@ -4,36 +4,36 @@
       <li>
         <div class="overviewBox">
           <div class="overviewBox_case">现有确诊</div>
-          <div class="overviewBox_number">5555555</div>
-          <span>昨日</span><span>+15</span>
+          <div class="overviewBox_number">{{today.currentConfirmedCount}}</div>
+          <span>昨日</span><span>{{today.currentConfirmedCount - yesterday.currentConfirmedCount}}</span>
         </div>
       </li>
       <li>
         <div class="overviewBox">
-          <div class="overviewBox_case">现有确诊</div>
-          <div class="overviewBox_number">5555555</div>
-          <span>昨日</span><span>+15</span>
+          <div class="overviewBox_case">累计确诊</div>
+          <div class="overviewBox_number">{{today.confirmedCount}}</div>
+          <span>昨日</span><span>{{today.currentConfirmedCount - yesterday.currentConfirmedCount}}</span>
         </div>
       </li>
       <li>
         <div class="overviewBox">
-          <div class="overviewBox_case">现有确诊</div>
-          <div class="overviewBox_number">5555555</div>
-          <span>昨日</span><span>+15</span>
+          <div class="overviewBox_case">现有疑似</div>
+          <div class="overviewBox_number">{{today.suspectedCount}}</div>
+          <span>昨日</span><span>{{today.suspectedCount - yesterday.suspectedCount}}</span>
         </div>
       </li>
       <li>
         <div class="overviewBox">
-          <div class="overviewBox_case">现有确诊</div>
-          <div class="overviewBox_number">5555555</div>
-          <span>昨日</span><span>+15</span>
+          <div class="overviewBox_case">累计治愈</div>
+          <div class="overviewBox_number">{{today.curedCount}}</div>
+          <span>昨日</span><span>{{today.curedCount - yesterday.curedCount}}</span>
         </div>
       </li>
       <li>
         <div class="overviewBox">
-          <div class="overviewBox_case">现有确诊</div>
-          <div class="overviewBox_number">5555555</div>
-          <span>昨日</span><span>+15</span>
+          <div class="overviewBox_case">累计死亡</div>
+          <div class="overviewBox_number">{{today.deadCount}}</div>
+          <span>昨日</span><span>{{today.deadCount - yesterday.deadCount}}</span>
         </div>
       </li>
     </ul>
@@ -42,8 +42,13 @@
 
 <script>
 export default {
+  props: {
+    today: {},
+    yesterday: {},
+  },
   data() {
     return {
+      
     };
   },
 };
