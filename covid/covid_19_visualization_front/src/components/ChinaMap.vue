@@ -106,7 +106,7 @@ export default {
           this.lastSelected = params.data.name;
         }
         // console.log(this.$parent)
-        console.log(this)
+        // console.log(this)
         that.set_show_area(this.lastSelected);
       });
 

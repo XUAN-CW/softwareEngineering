@@ -49,7 +49,8 @@ export default {
         };
       });
       this.set_show_area("湖北");
-      this.show.covidType = "curedCount";
+      this.set_show_covidType("confirmedCount")
+      // this.show.covidType = "curedCount";
       // console.log(this.week)
       // this.show.areaCaseOnAWeek = this.week.map((item) => {
       //   return {
@@ -112,10 +113,16 @@ export default {
         this.week = res.data.data.week;
       });
     },
-    set_show_area(area){
-      this.show.area=area;
+    set_show_area(area) {
+      this.show.area = area;
     },
+
+    set_show_covidType(covidType) {
+      this.show.covidType = covidType;
+    },
+
     set_children_name_value() {
+      console.log(this.show.covidType)
       if (this.show.area == 'china') {
         this.show.children_name_value = this.week[0].provinceVOList.map((item) => {
           let valueType;

@@ -54,7 +54,11 @@ export default {
   methods: {
 
     set_covidType(e) {
-      console.log(e.currentTarget.getAttribute("lable"))// 当前元素
+      // console.log(e.currentTarget.getAttribute("lable"))// 当前元素
+      this.set_covidTypeHelper(e.currentTarget.getAttribute("lable"))
+    },
+    set_covidTypeHelper(covidType){
+      this.$parent.set_show_covidType(covidType)
     }
   },
 
