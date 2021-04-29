@@ -2,7 +2,7 @@
   <div id="overview" v-if="today">
     <ul>
       <li>
-        <div class="overviewBox">
+        <div class="overviewBox" lable="currentConfirmedCount" @click="set_covidType($event)">
           <div class="overviewBox_case">现有确诊</div>
           <div class="overviewBox_number">{{today.currentConfirmedCount}}</div>
           <span>昨日</span><span>{{today.currentConfirmedCount - yesterday.currentConfirmedCount}}</span>
@@ -48,9 +48,16 @@ export default {
   },
   data() {
     return {
-      
+
     };
   },
+  methods: {
+
+    set_covidType(e) {
+      console.log(e.currentTarget.getAttribute("lable"))// 当前元素
+    }
+  },
+
 };
 </script>
 
