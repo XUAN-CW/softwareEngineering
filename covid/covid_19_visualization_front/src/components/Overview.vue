@@ -1,11 +1,41 @@
 <template>
   <div id="overview">
     <ul>
-      <li><OverviewBox></OverviewBox></li>
-      <li><OverviewBox></OverviewBox></li>
-      <li><OverviewBox></OverviewBox></li>
-      <li><OverviewBox></OverviewBox></li>
-      <li><OverviewBox></OverviewBox></li>
+      <li>
+        <div class="overviewBox">
+          <div class="overviewBox_case">现有确诊</div>
+          <div class="overviewBox_number">5555555</div>
+          <span>昨日</span><span>+15</span>
+        </div>
+      </li>
+      <li>
+        <div class="overviewBox">
+          <div class="overviewBox_case">现有确诊</div>
+          <div class="overviewBox_number">5555555</div>
+          <span>昨日</span><span>+15</span>
+        </div>
+      </li>
+      <li>
+        <div class="overviewBox">
+          <div class="overviewBox_case">现有确诊</div>
+          <div class="overviewBox_number">5555555</div>
+          <span>昨日</span><span>+15</span>
+        </div>
+      </li>
+      <li>
+        <div class="overviewBox">
+          <div class="overviewBox_case">现有确诊</div>
+          <div class="overviewBox_number">5555555</div>
+          <span>昨日</span><span>+15</span>
+        </div>
+      </li>
+      <li>
+        <div class="overviewBox">
+          <div class="overviewBox_case">现有确诊</div>
+          <div class="overviewBox_number">5555555</div>
+          <span>昨日</span><span>+15</span>
+        </div>
+      </li>
     </ul>
     <div id="loginAndSignIn">
       <a href=""> 登录 </a>
@@ -15,11 +45,7 @@
 </template>
 
 <script>
-import OverviewBox from "@/components/OverviewBox";
 export default {
-  components: {
-    OverviewBox,
-  },
   data() {
     return {
       tableData: [
@@ -43,6 +69,21 @@ export default {
 </script>
 
 <style>
+.overviewBox {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.overviewBox:hover {
+  background-color: whitesmoke;
+  border-radius: 20px;
+}
+.overviewBox_number {
+  font-size: 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+/**********************************************************************************************************/
 #overview {
   margin: 20px auto; /* 外边距 */
   width: 1000px;
@@ -66,6 +107,7 @@ ul li {
   width: 150px; /*任意设置li的宽度，不设置宽度的话也可以设置padding*/
 }
 
+/**********************************************************************************************************/
 #loginAndSignIn {
   top: 10px;
   right: 10px;
@@ -73,6 +115,6 @@ ul li {
 }
 a {
   text-decoration: none;
-  color:gray;
+  color: gray;
 }
 </style>
