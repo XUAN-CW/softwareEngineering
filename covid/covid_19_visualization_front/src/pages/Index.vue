@@ -48,7 +48,7 @@ export default {
           value: item.currentConfirmedCount,
         };
       });
-      this.show.area = "湖南";
+      this.set_show_area("湖北");
       this.show.covidType = "curedCount";
       // console.log(this.week)
       // this.show.areaCaseOnAWeek = this.week.map((item) => {
@@ -111,6 +111,9 @@ export default {
       axios.get("http://localhost:8801/city-case/queryAWeek").then((res) => {
         this.week = res.data.data.week;
       });
+    },
+    set_show_area(area){
+      this.show.area=area;
     },
     set_children_name_value() {
       if (this.show.area == 'china') {

@@ -24,6 +24,7 @@ export default {
   },
   data() {
     return {
+      lastSelected: '',
     };
   },
   mounted() {
@@ -96,8 +97,28 @@ export default {
       // console.log("aaaaaa"+this.resource);
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(options);
+      let that = this
+      myChart.on('click', function (params) {
+        if (this.lastSelected == params.data.name) {
+          this.lastSelected = "china"
+
+        } else {
+          this.lastSelected = params.data.name;
+        }
+        // console.log(this.$parent)
+        console.log(this)
+        that.set_show_area(this.lastSelected);
+      });
+
+      // this.set_show_area("广西");
     },
+
+
+    set_show_area(area) {
+      this.$parent.set_show_area(area)
+    }
   },
+
 };
 </script>
     <style>
