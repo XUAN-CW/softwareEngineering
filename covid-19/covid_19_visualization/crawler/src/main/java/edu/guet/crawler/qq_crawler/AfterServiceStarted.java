@@ -1,5 +1,6 @@
 package edu.guet.crawler.qq_crawler;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -99,7 +100,6 @@ public class AfterServiceStarted implements ApplicationRunner {
         //解析 json 到各省
         JSONObject all = (JSONObject) JSONObject.parse(inews);
         JSONObject data = (JSONObject)all.get("data");
-        JSONObject chinaTotal = (JSONObject)data.get("chinaTotal");
         JSONArray areaTree = (JSONArray)data.get("areaTree");
         JSONObject zero = (JSONObject)areaTree.get(0);
         JSONArray provinces = zero.getJSONArray("children");
@@ -114,11 +114,7 @@ public class AfterServiceStarted implements ApplicationRunner {
         chinaArea.setName("中国");
         chinaArea.setParentId(null);
         chinaArea.setUpdateTime(lastUpdateTime);
-        chinaArea.setCurrentConfirm(chinaTotal.getInteger("nowConfirm"));
-        chinaArea.setConfirm(chinaTotal.getInteger("confirm"));
-        chinaArea.setSuspect(chinaTotal.getInteger("suspect"));
-        chinaArea.setCure(chinaTotal.getInteger("heal"));
-        chinaArea.setDead(chinaTotal.getInteger("dead"));
+        setTotal(chinaArea,(JSONObject)data.get("chinaTotal"));
         areaMapper.insert(chinaArea);
 
 
@@ -129,31 +125,24 @@ public class AfterServiceStarted implements ApplicationRunner {
             Area province = new Area();
             JSONObject provinceKey = (JSONObject) provinces.get(i);
             province.setName(provinceKey.getString("name"));
-            province.setParentId(86);
+            province.setParentId((long) 86);
             province.setUpdateTime(lastUpdateTime);
-            JSONObject provinceTotal = (JSONObject) provinceKey.get("total");
-            province.setCurrentConfirm(provinceTotal.getInteger("nowConfirm"));
-            province.setConfirm(provinceTotal.getInteger("confirm"));
-            province.setSuspect(provinceTotal.getInteger("suspect"));
-            province.setCure(provinceTotal.getInteger("heal"));
-            province.setDead(provinceTotal.getInteger("dead"));
+            setTotal(province,(JSONObject) provinceKey.get("total"));
+//            System.out.println("a---a"+JSONObject.toJSONString(province));
+//            System.err.println("a---a"+JSONObject.toJSONString(province));
 
 
             Area currentProvince = insertIntoMysql(province);
             List<AreaWithChildren> cityList = new ArrayList<>();
-            JSONArray cities = zero.getJSONArray("children");
+            JSONArray cities = provinceKey.getJSONArray("children");
             for (int j = 0; j < cities.size(); j++) {
                 Area city = new Area();
                 JSONObject cityKey = (JSONObject) cities.get(j);
                 city.setName(cityKey.getString("name"));
-                city.setParentId(currentProvince.getParentId());
+                city.setParentId(currentProvince.getId());
                 city.setUpdateTime(lastUpdateTime);
-                JSONObject cityTotal = (JSONObject) cityKey.get("total");
-                city.setCurrentConfirm(cityTotal.getInteger("nowConfirm"));
-                city.setConfirm(cityTotal.getInteger("confirm"));
-                city.setSuspect(cityTotal.getInteger("suspect"));
-                city.setCure(cityTotal.getInteger("heal"));
-                city.setDead(cityTotal.getInteger("dead"));
+                setTotal(city,(JSONObject) cityKey.get("total"));
+//                System.err.println(JSONObject.toJSONString(city));
                 AreaWithChildren cityAWC = new AreaWithChildren();
                 cityAWC.setCurrentArea(insertIntoMysql(city));
                 cityList.add(cityAWC);
@@ -167,8 +156,18 @@ public class AfterServiceStarted implements ApplicationRunner {
         AreaWithChildren chinaWithChildren=new AreaWithChildren();
         chinaWithChildren.setCurrentArea(chinaArea);
         chinaWithChildren.setChildren(provinceList);
-        System.out.println(JSONObject.toJSONString(chinaWithChildren));
+//        System.out.println(JSONObject.toJSONString(chinaWithChildren));
 
+    }
+
+    Area setTotal(Area area,JSONObject total){
+//        System.out.println(JSONObject.toJSONString(provinceTotal));
+        area.setCurrentConfirm(total.getInteger("nowConfirm"));
+        area.setConfirm(total.getInteger("confirm"));
+        area.setSuspect(total.getInteger("suspect"));
+        area.setCure(total.getInteger("heal"));
+        area.setDead(total.getInteger("dead"));
+        return area;
     }
 
 
@@ -179,7 +178,7 @@ public class AfterServiceStarted implements ApplicationRunner {
         List<Area> areas = areaMapper.selectList(queryWrapper2);
 
         if(areas.isEmpty()){
-            System.out.println("isEmpty");
+//            System.out.println("isEmpty");
             for (;;){
                 area.setId((long) (1000000 + new Random().nextInt(9000000)));
                 QueryWrapper<Area> queryWrapper = new QueryWrapper<>();
@@ -190,11 +189,12 @@ public class AfterServiceStarted implements ApplicationRunner {
                 }
             }
         }else {
-            System.out.println("------------------");
+//            System.out.println("------------------");
             area.setId(areas.get(0).getId());
         }
 
 
+//        System.out.println(JSONObject.toJSONString(area));
         areaMapper.insert(area);
 
         return area;
