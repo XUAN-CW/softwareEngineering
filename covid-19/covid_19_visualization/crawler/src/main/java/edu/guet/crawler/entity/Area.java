@@ -29,7 +29,7 @@ public class Area implements Serializable {
     private String name;
 
     @TableField("parentId")
-    private Integer parentId;
+    private Long parentId;
 
     @TableField("updateTime")
     private Date updateTime;
