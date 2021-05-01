@@ -12,6 +12,7 @@
         <module>helper</module>
         <module>common</module>
         <module>visualization</module>
+        <module>crawler</module>
     </modules>
 
     <parent>
