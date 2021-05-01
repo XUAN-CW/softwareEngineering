@@ -1,4 +1,4 @@
-package edu.guet;
+package edu.guet.common;
 
 import lombok.Data;
 
