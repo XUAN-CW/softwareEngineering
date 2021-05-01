@@ -1,9 +1,9 @@
 package edu.guet.crawler.qq_crawler;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import edu.guet.crawler.api.RedisInterface;
 import edu.guet.crawler.entity.Area;
 import edu.guet.crawler.entity.vo.AreaWithChildren;
 import edu.guet.crawler.mapper.AreaMapper;
@@ -49,9 +49,11 @@ public class AfterServiceStarted implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-//        System.out.println(areaMapper.selectList(null));
-
-        crawlingAndInsert();
+        while (true){
+            System.out.println(new Date());
+            updateData();
+            Thread.sleep(1000*60);
+        }
     }
 
 
@@ -90,16 +92,24 @@ public class AfterServiceStarted implements ApplicationRunner {
         return html;
     }
 
-    public void crawlingAndInsert() throws IOException, ParseException {
+    JSONObject crawlingAndParse() throws ParseException {
         //爬取资源并解析成 json 格式
-        String inews = getHTML("https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5");
-        inews = inews.replace("\\\"","\"");
-        inews = inews.replaceFirst("\"data\":\"","\"data\":");
-        inews = inews.replace("]}]}]}\"}","]}]}]}}");
+        JSONObject data=null;
+        try {
+            String inews = getHTML("https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5");
+            inews = inews.replace("\\\"","\"");
+            inews = inews.replaceFirst("\"data\":\"","\"data\":");
+            inews = inews.replace("]}]}]}\"}","]}]}]}}");
+            JSONObject all = (JSONObject) JSONObject.parse(inews);
+            data = (JSONObject)all.get("data");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-        //解析 json 到各省
-        JSONObject all = (JSONObject) JSONObject.parse(inews);
-        JSONObject data = (JSONObject)all.get("data");
+        return data;
+    };
+
+    public AreaWithChildren parseAndInsert(JSONObject data) throws ParseException {
         JSONArray areaTree = (JSONArray)data.get("areaTree");
         JSONObject zero = (JSONObject)areaTree.get(0);
         JSONArray provinces = zero.getJSONArray("children");
@@ -107,13 +117,13 @@ public class AfterServiceStarted implements ApplicationRunner {
 
         //获取更新时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        Date lastUpdateTime =  sdf.parse(data.getString("lastUpdateTime"));//string转date
+        Date updateTime =  sdf.parse(data.getString("lastUpdateTime"));//string转date
 
         Area chinaArea = new Area();
         chinaArea.setId((long) 86);
         chinaArea.setName("中国");
         chinaArea.setParentId(null);
-        chinaArea.setUpdateTime(lastUpdateTime);
+        chinaArea.setUpdateTime(updateTime);
         setTotal(chinaArea,(JSONObject)data.get("chinaTotal"));
         areaMapper.insert(chinaArea);
 
@@ -126,7 +136,7 @@ public class AfterServiceStarted implements ApplicationRunner {
             JSONObject provinceKey = (JSONObject) provinces.get(i);
             province.setName(provinceKey.getString("name"));
             province.setParentId((long) 86);
-            province.setUpdateTime(lastUpdateTime);
+            province.setUpdateTime(updateTime);
             setTotal(province,(JSONObject) provinceKey.get("total"));
 //            System.out.println("a---a"+JSONObject.toJSONString(province));
 //            System.err.println("a---a"+JSONObject.toJSONString(province));
@@ -140,7 +150,7 @@ public class AfterServiceStarted implements ApplicationRunner {
                 JSONObject cityKey = (JSONObject) cities.get(j);
                 city.setName(cityKey.getString("name"));
                 city.setParentId(currentProvince.getId());
-                city.setUpdateTime(lastUpdateTime);
+                city.setUpdateTime(updateTime);
                 setTotal(city,(JSONObject) cityKey.get("total"));
 //                System.err.println(JSONObject.toJSONString(city));
                 AreaWithChildren cityAWC = new AreaWithChildren();
@@ -158,6 +168,7 @@ public class AfterServiceStarted implements ApplicationRunner {
         chinaWithChildren.setChildren(provinceList);
 //        System.out.println(JSONObject.toJSONString(chinaWithChildren));
 
+        return chinaWithChildren;
     }
 
     Area setTotal(Area area,JSONObject total){
@@ -198,6 +209,26 @@ public class AfterServiceStarted implements ApplicationRunner {
         areaMapper.insert(area);
 
         return area;
+    }
+
+    void updateData(){
+        try {
+            JSONObject data = crawlingAndParse();
+            if(null != data){
+                //获取更新时间
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                Date dataLastUpdateTime =  sdf.parse(data.getString("lastUpdateTime"));
+                if(dataLastUpdateTime.getTime()!=RedisInterface.lastUpdateTime.getTime()){
+                    RedisInterface.lastUpdateTime.setTime(dataLastUpdateTime.getTime());
+                    RedisInterface.chinaWithChildren = parseAndInsert(data);
+                }else {
+                    System.out.println(RedisInterface.lastUpdateTime);
+                    System.out.println(JSONObject.toJSONString(RedisInterface.chinaWithChildren));
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
 
