@@ -33,7 +33,7 @@ import java.util.List;
 public class CovidInChina {
 
 
-    public String getHTML(String url){
+    private String getHTML(String url){
         System.out.println("当前 url: "+url);
         String html=null;
         //1.生成httpclient，相当于该打开一个浏览器
@@ -68,7 +68,7 @@ public class CovidInChina {
         return html;
     }
 
-    JSONObject crawlingAndToJSONObject() throws ParseException {
+    private JSONObject crawlingAndToJSONObject() throws ParseException {
         //爬取资源并解析成 json 格式
         JSONObject data=null;
         try {
@@ -88,7 +88,7 @@ public class CovidInChina {
 
 
 
-    Area setTotal(Area area,JSONObject total){
+    private Area setTotal(Area area,JSONObject total){
         area.setCurrentConfirm(total.getInteger("nowConfirm"));
         area.setConfirm(total.getInteger("confirm"));
         area.setSuspect(total.getInteger("suspect"));
@@ -97,7 +97,7 @@ public class CovidInChina {
         return area;
     }
 
-    public AreaWithChildren parse(JSONObject data) throws ParseException {
+    private AreaWithChildren parse(JSONObject data) throws ParseException {
         JSONArray areaTree = (JSONArray)data.get("areaTree");
         JSONObject zero = (JSONObject)areaTree.get(0);
         JSONArray provinces = zero.getJSONArray("children");
@@ -149,7 +149,7 @@ public class CovidInChina {
 
 
 
-    AreaWithChildren currentChinaData(){
+    public AreaWithChildren currentChinaData(){
         AreaWithChildren areaWithChildren=null;
         try {
             JSONObject data = crawlingAndToJSONObject();
