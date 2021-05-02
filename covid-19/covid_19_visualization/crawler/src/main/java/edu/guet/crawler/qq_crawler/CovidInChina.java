@@ -2,11 +2,8 @@ package edu.guet.crawler.qq_crawler;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import edu.guet.crawler.api.RedisInterface;
 import edu.guet.crawler.entity.Area;
 import edu.guet.crawler.entity.vo.AreaWithChildren;
-import edu.guet.crawler.mapper.AreaMapper;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
@@ -16,18 +13,14 @@ import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author XUAN
@@ -38,12 +31,6 @@ import java.util.Random;
  */
 @Component
 public class CovidInChina {
-
-    @Autowired
-    AreaMapper areaMapper;
-    /**
-     * 会在服务启动完成后立即执行
-     */
 
 
     public String getHTML(String url){
@@ -81,7 +68,7 @@ public class CovidInChina {
         return html;
     }
 
-    JSONObject crawlingAndParse() throws ParseException {
+    JSONObject crawlingAndToJSONObject() throws ParseException {
         //爬取资源并解析成 json 格式
         JSONObject data=null;
         try {
@@ -99,28 +86,6 @@ public class CovidInChina {
     };
 
 
-    Area insertIntoMysql(Area area){
-        QueryWrapper<Area> queryWrapper2 = new QueryWrapper<>();
-        queryWrapper2.eq("parentId", area.getParentId()).eq("name",area.getName());
-        List<Area> areas = areaMapper.selectList(queryWrapper2);
-
-        if(areas.isEmpty()){
-//            System.out.println("isEmpty");
-            for (;;){
-                area.setId((long) (1000000 + new Random().nextInt(9000000)));
-                QueryWrapper<Area> queryWrapper = new QueryWrapper<>();
-                queryWrapper.eq("id", area.getId());
-                List<Area> user = areaMapper.selectList(queryWrapper);
-                if(user.isEmpty()){
-                    break;
-                }
-            }
-        }else {
-            area.setId(areas.get(0).getId());
-        }
-        areaMapper.insert(area);
-        return area;
-    }
 
 
     Area setTotal(Area area,JSONObject total){
@@ -132,12 +97,12 @@ public class CovidInChina {
         return area;
     }
 
-    public AreaWithChildren parseAndInsert(JSONObject data) throws ParseException {
+    public AreaWithChildren parse(JSONObject data) throws ParseException {
         JSONArray areaTree = (JSONArray)data.get("areaTree");
         JSONObject zero = (JSONObject)areaTree.get(0);
         JSONArray provinces = zero.getJSONArray("children");
 
-        System.out.println(JSONObject.toJSONString(data));
+//        System.out.println(JSONObject.toJSONString(data));
         //获取更新时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Date updateTime =  sdf.parse(data.getString("lastUpdateTime"));//string转date
@@ -148,7 +113,6 @@ public class CovidInChina {
         chinaArea.setParentId(null);
         chinaArea.setUpdateTime(updateTime);
         setTotal(chinaArea,(JSONObject)data.get("chinaTotal"));
-        areaMapper.insert(chinaArea);
 
 
 
@@ -162,39 +126,34 @@ public class CovidInChina {
             province.setUpdateTime(updateTime);
             setTotal(province,(JSONObject) provinceKey.get("total"));
 
-            Area currentProvince = insertIntoMysql(province);
             List<AreaWithChildren> cityList = new ArrayList<>();
             JSONArray cities = provinceKey.getJSONArray("children");
             for (int j = 0; j < cities.size(); j++) {
                 AreaWithChildren city = new AreaWithChildren();
                 JSONObject cityKey = (JSONObject) cities.get(j);
                 city.setName(cityKey.getString("name"));
-                city.setParentId(currentProvince.getId());
                 city.setUpdateTime(updateTime);
                 setTotal(city,(JSONObject) cityKey.get("total"));
 
-                insertIntoMysql(city);
                 cityList.add(city);
             }
             province.setChildren(cityList);
             provinceList.add(province);
         }
 
-        AreaWithChildren chinaWithChildren=new AreaWithChildren();
-        chinaWithChildren.setChildren(provinceList);
-
-        return chinaWithChildren;
+        chinaArea.setChildren(provinceList);
+        return chinaArea;
     }
 
 
 
 
 
-    AreaWithChildren updateData(){
+    AreaWithChildren currentChinaData(){
         AreaWithChildren areaWithChildren=null;
         try {
-            JSONObject data = crawlingAndParse();
-            areaWithChildren=parseAndInsert(data);
+            JSONObject data = crawlingAndToJSONObject();
+            areaWithChildren= parse(data);
 
         }catch (Exception e){
             e.printStackTrace();
