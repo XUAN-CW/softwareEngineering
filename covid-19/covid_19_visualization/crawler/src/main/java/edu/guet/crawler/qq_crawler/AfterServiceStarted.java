@@ -52,7 +52,8 @@ public class AfterServiceStarted implements ApplicationRunner {
         while (true){
             System.out.println(new Date());
             updateData();
-            Thread.sleep(1000*60);
+            break;
+//            Thread.sleep(1000*60);
         }
     }
 
@@ -119,7 +120,7 @@ public class AfterServiceStarted implements ApplicationRunner {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Date updateTime =  sdf.parse(data.getString("lastUpdateTime"));//string转date
 
-        Area chinaArea = new Area();
+        AreaWithChildren chinaArea = new AreaWithChildren();
         chinaArea.setId((long) 86);
         chinaArea.setName("中国");
         chinaArea.setParentId(null);
@@ -132,41 +133,33 @@ public class AfterServiceStarted implements ApplicationRunner {
 
         List<AreaWithChildren> provinceList = new ArrayList<>();
         for (int i = 0; i < provinces.size(); i++) {
-            Area province = new Area();
+            AreaWithChildren province = new AreaWithChildren();
             JSONObject provinceKey = (JSONObject) provinces.get(i);
             province.setName(provinceKey.getString("name"));
             province.setParentId((long) 86);
             province.setUpdateTime(updateTime);
             setTotal(province,(JSONObject) provinceKey.get("total"));
-//            System.out.println("a---a"+JSONObject.toJSONString(province));
-//            System.err.println("a---a"+JSONObject.toJSONString(province));
-
 
             Area currentProvince = insertIntoMysql(province);
             List<AreaWithChildren> cityList = new ArrayList<>();
             JSONArray cities = provinceKey.getJSONArray("children");
             for (int j = 0; j < cities.size(); j++) {
-                Area city = new Area();
+                AreaWithChildren city = new AreaWithChildren();
                 JSONObject cityKey = (JSONObject) cities.get(j);
                 city.setName(cityKey.getString("name"));
                 city.setParentId(currentProvince.getId());
                 city.setUpdateTime(updateTime);
                 setTotal(city,(JSONObject) cityKey.get("total"));
-//                System.err.println(JSONObject.toJSONString(city));
-                AreaWithChildren cityAWC = new AreaWithChildren();
-                cityAWC.setCurrentArea(insertIntoMysql(city));
-                cityList.add(cityAWC);
+
+                insertIntoMysql(city);
+                cityList.add(city);
             }
-            AreaWithChildren provinceWithChildren=new AreaWithChildren();
-            provinceWithChildren.setCurrentArea(currentProvince);
-            provinceWithChildren.setChildren(cityList);
-            provinceList.add(provinceWithChildren);
+            province.setChildren(cityList);
+            provinceList.add(province);
         }
 
         AreaWithChildren chinaWithChildren=new AreaWithChildren();
-        chinaWithChildren.setCurrentArea(chinaArea);
         chinaWithChildren.setChildren(provinceList);
-//        System.out.println(JSONObject.toJSONString(chinaWithChildren));
 
         return chinaWithChildren;
     }

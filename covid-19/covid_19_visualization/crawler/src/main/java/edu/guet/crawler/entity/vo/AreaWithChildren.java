@@ -13,7 +13,6 @@ import java.util.List;
  * @errors
  */
 @Data
-public class AreaWithChildren {
-    Area currentArea;
+public class AreaWithChildren extends Area{
     List<AreaWithChildren> children;
 }
